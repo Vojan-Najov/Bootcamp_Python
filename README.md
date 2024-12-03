@@ -2,4 +2,5 @@
 The Python bootcamp of school 21.
 
 - [Day 00](day00/)
+- [Day 01](day01/)
 
