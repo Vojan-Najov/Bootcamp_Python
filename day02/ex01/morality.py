@@ -53,10 +53,6 @@ class Player():
         self.id = player_id
         self.other_choices = []
 
-    def __iadd__(self, num):
-        self.candies += num
-        self.last = num
-
     def __str__(self) -> str:
         return f'{self.id}' if self.id else ''
 
@@ -159,6 +155,7 @@ class Random(Player):
         else:
             return 'cheat'
 
+
 class Copykitten(Player):
     def __str__(self) -> str:
         return 'copykitten' + super().__str__()
@@ -188,31 +185,46 @@ class ThinkTwiser(Player):
 
 
 def simulation():
+    print(f"{'Simulation of Game':#^40}")
     game = Game()
     players = [Cheater(), Cooperator(), Copycat(), Grudger(), Detective()]
     for player1, player2 in combinations(players, r=2):
         game.play(player1, player2)
         print(f'{player1} VS {player2}')
-        game.top3()
-        print()
+    print('\nTop 3:')
+    game.top3()
+    print('#' * 40)
+    print()
 
-def simulation_with_bonus():
+    print(f"{'Simulation of Game with Random':#^40}")
+    game = Game(matches=5)
+    players = [
+        Cheater(), Cooperator(), Copycat(), Grudger(), Detective(),
+        Random(),
+    ]
+    for player1, player2 in combinations(players, r=2):
+        game.play(player1, player2)
+        print(f'{player1} VS {player2}')
+    print('\nTop 3:')
+    game.top3()
+    print('#' * 40)
+    print()
+
+    print(f"{'Simulation of Game with Bonus':#^40}")
     game = Game()
     players = [
         Cheater(), Cooperator(), Copycat(), Grudger(), Detective(),
-        #Random(),
         Copykitten(), ThinkTwiser()
     ]
     for player1, player2 in combinations(players, r=2):
         game.play(player1, player2)
         print(f'{player1} VS {player2}')
-        game.top3()
-        print()
+    print('\nTop 3:')
+    game.top3()
+    print('#' * 40)
 
-    # game.top3()
 
 
 if __name__ == '__main__':
     simulation()
-    simulation_with_bonus()
     
