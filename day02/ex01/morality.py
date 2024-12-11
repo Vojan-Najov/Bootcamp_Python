@@ -174,14 +174,16 @@ class ThinkTwiser(Player):
 
     def __next__(self) -> str:
         nmatches = len(self.other_choices)
-        if nmatches == 1:
+        if nmatches == 0:
             return 'cooperate'
-        elif nmatches == 2 and self.other_choices[-1] == 'cooperate':
-            return 'cooperate'
-        elif nmatches > 2 and self.other_choices[-1] == 'cooperate':
-            return 'cooperate'
-        else:
+        elif self.other_choices[0] == 'cheat':
             return 'cheat'
+        elif nmatches == 1:
+            return 'cooperate'
+        elif self.other_choices[1] == 'cheat' and nmatches in (2, 3):
+                return 'cheat'
+        else:
+            return 'cooperate'
 
 
 def simulation():
@@ -200,7 +202,7 @@ def simulation():
     game = Game(matches=5)
     players = [
         Cheater(), Cooperator(), Copycat(), Grudger(), Detective(),
-        Random(),
+        Random(), Copykitten(),
     ]
     for player1, player2 in combinations(players, r=2):
         game.play(player1, player2)
@@ -214,7 +216,7 @@ def simulation():
     game = Game()
     players = [
         Cheater(), Cooperator(), Copycat(), Grudger(), Detective(),
-        Copykitten(), ThinkTwiser()
+        ThinkTwiser()
     ]
     for player1, player2 in combinations(players, r=2):
         game.play(player1, player2)
@@ -222,7 +224,6 @@ def simulation():
     print('\nTop 3:')
     game.top3()
     print('#' * 40)
-
 
 
 if __name__ == '__main__':
