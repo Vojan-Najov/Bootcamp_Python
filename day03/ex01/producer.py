@@ -37,6 +37,16 @@ def main():
 
     r = redis.Redis(host=host, port=port, db=radis_db)
 
+    default_messages = [ 
+        '{"metadata": {"from": 1111111111,"to": 2222222222},"amount": 10000}',
+        '{"metadata": {"from": 3333333333,"to": 4444444444},"amount": -3000}',
+        '{"metadata": {"from": 2222222222,"to": 5555555555},"amount": 5000}',
+    ]
+
+    for message in default_messages:
+        r.publish('transactions', message)
+        logger.info(message)
+
     for i in range(n_transactions):
         message = produce_message()
         r.publish('transactions', message)

@@ -29,6 +29,7 @@ def main():
         "-e",
         help="is a parameter receiving a list of bad guys account numbers",
         type=lambda x: re.split(r'[\s+|,]\s*', x),
+        default=[],
         action='append',
     )
     args = parser.parse_args()
@@ -60,3 +61,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
