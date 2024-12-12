@@ -181,7 +181,7 @@ class ThinkTwiser(Player):
         elif nmatches == 1:
             return 'cooperate'
         elif self.other_choices[1] == 'cheat' and nmatches in (2, 3):
-                return 'cheat'
+            return 'cheat'
         else:
             return 'cooperate'
 
