@@ -6,4 +6,5 @@ The Python bootcamp of school 21.
 - [Day 02](day02/) Discover the mysteries of a closed Vault.
 - [Day 03](day03/) Fight the system, help the people!
 - [Day 04](day04/) The cake is not a lie.
+- [Team 00](team00/) Magical connections.
 
