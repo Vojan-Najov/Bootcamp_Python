@@ -20,12 +20,15 @@ def fix_wiring_one_line(cbls, scts, plgs):
     return map(
         lambda x: f'plug {x[0][0]} into {x[0][1]} using {x[1]}' \
                 if x[1] else f'weld {x[0][0]} to {x[0][1]} without plug',
-        zip_longest(
-            zip(
-                filter(lambda x: isinstance(x, str), cbls),
-                filter(lambda x: isinstance(x, str), scts),
-            ),
-            filter(lambda x: isinstance(x, str), plgs),
+        filter(
+            lambda x: x[0] is not None,
+            zip_longest(
+                zip(
+                    filter(lambda x: isinstance(x, str), cbls),
+                    filter(lambda x: isinstance(x, str), scts),
+                ),
+                filter(lambda x: isinstance(x, str), plgs),
+            )
         )
     )
 
@@ -86,7 +89,7 @@ class TestFixWiring(unittest.TestCase):
 
 
     def test_fix_wiring_one_line_2(self):
-        gen = fix_wiring(self.cables2, self.sockets2, self.plugs2)
+        gen = fix_wiring_one_line(self.cables2, self.sockets2, self.plugs2)
         expected = (x for x in self.expected2)
         for got, want in zip(gen, expected):
             self.assertEqual(got, want)
